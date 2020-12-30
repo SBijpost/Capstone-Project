@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="-10dp"
     tools:context=".LoginFragment">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/snepchatTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="128dp"
         android:text="Snepchat"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="36sp"
@@ -34,9 +35,10 @@
         tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietEmail"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tietEmail" />
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -55,10 +57,10 @@
         tools:visibility="visible">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:id="@+id/tietPassword" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,26 +78,26 @@
         android:id="@+id/noAccountTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:text="Don't have an account?"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="36sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/registerNavButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         tools:visibility="visible" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/registerNavButton"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
+        android:paddingTop="-30dp"
         android:text="Register"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#FF9800"
-        android:textSize="36sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
