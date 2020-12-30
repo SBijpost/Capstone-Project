@@ -1,23 +1,19 @@
-package com.sem.capstoneproject
+package com.sem.capstoneproject.ui.auth
 
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.sem.capstoneproject.MainActivity
+import com.sem.capstoneproject.R
 import kotlinx.android.synthetic.main.fragment_register.registerButton
 import kotlinx.android.synthetic.main.fragment_register.tietEmail
 import kotlinx.android.synthetic.main.fragment_register.tietPassword

@@ -1,4 +1,4 @@
-package com.sem.capstoneproject
+package com.sem.capstoneproject.ui.auth
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -12,6 +12,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.sem.capstoneproject.MainActivity
+import com.sem.capstoneproject.R
 import kotlinx.android.synthetic.main.fragment_login.*
 
 /**
