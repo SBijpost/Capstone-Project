@@ -72,6 +72,8 @@ class RegisterFragment : Fragment() {
                         .addOnCompleteListener { task2 ->
                             if (task2.isSuccessful) {
                                 Log.d(TAG, "User profile updated.")
+                                Snackbar.make(view, "Successfully registered!", Snackbar.LENGTH_SHORT)
+                                    .setAction("Action", null).show()
                             }
                         }
                     //updateUI(user)

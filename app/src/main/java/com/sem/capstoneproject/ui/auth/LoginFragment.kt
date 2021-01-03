@@ -63,6 +63,8 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
+                    Snackbar.make(view, "Successfully logged in!", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show()
                     updateUI()
                 } else {
                     // If sign in fails, display a message to the user.
