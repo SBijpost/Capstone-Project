@@ -8,7 +8,7 @@ data class SnepItem(
     val image_path: String,
     val receiver: String,
     val sender: String,
-    val status: Boolean
+    val opened: Boolean
 
     ) {
 //    fun getImageUrl() = "https://image.tmdb.org/t/p/w500/$poster_path"

@@ -1,5 +1,6 @@
 package com.sem.capstoneproject.ui.sneps
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
 import com.sem.capstoneproject.adapter.SnepAdapter
 import com.sem.capstoneproject.model.SnepItem
+import com.sem.capstoneproject.tabs.TabsActivity
 import kotlinx.android.synthetic.main.fragment_sneps.*
 
 class SnepsFragment: Fragment() {
@@ -37,6 +40,10 @@ class SnepsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fab.setOnClickListener {
+            signOutUser()
+        }
 
         snepAdapter = SnepAdapter(sneps, ::onSnepClick)
         rvSneps.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
@@ -62,6 +69,12 @@ class SnepsFragment: Fragment() {
 
     private fun onSnepClick(snepItem: SnepItem) {
         Snackbar.make(rvSneps, "dit is een sneppie", Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun signOutUser() {
+        auth.signOut()
+        val intent = Intent(this.requireContext(), MainActivity::class.java)
+        startActivity(intent)
     }
 
 

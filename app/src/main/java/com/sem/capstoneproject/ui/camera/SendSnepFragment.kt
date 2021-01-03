@@ -10,7 +10,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.sem.capstoneproject.R
 
-class SendPictureFragment: Fragment() {
+class SendSnepFragment: Fragment() {
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(

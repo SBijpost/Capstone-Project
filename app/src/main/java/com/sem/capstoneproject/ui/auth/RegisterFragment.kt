@@ -1,19 +1,25 @@
 package com.sem.capstoneproject.ui.auth
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
+import com.sem.capstoneproject.tabs.TabsActivity
 import kotlinx.android.synthetic.main.fragment_register.registerButton
 import kotlinx.android.synthetic.main.fragment_register.tietEmail
 import kotlinx.android.synthetic.main.fragment_register.tietPassword
@@ -25,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_register.*
 class RegisterFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +39,7 @@ class RegisterFragment : Fragment() {
     ): View? {
 
         auth = Firebase.auth
+        database = Firebase.database
 
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as MainActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -72,19 +80,35 @@ class RegisterFragment : Fragment() {
                         .addOnCompleteListener { task2 ->
                             if (task2.isSuccessful) {
                                 Log.d(TAG, "User profile updated.")
+                                writeUserToDatabase(view, user.uid, user.displayName, user.email)
                                 Snackbar.make(view, "Successfully registered!", Snackbar.LENGTH_SHORT)
-                                    .setAction("Action", null).show()
+                                        .setAction("Action", null).show()
+                                updateUI()
                             }
                         }
-                    //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signUpWithEmail:failure", task.exception)
-                    Snackbar.make(view, "Authentication failed.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "Registration failed. Make sure the passwords are identical.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show()
                     //updateUI(null)
                 }
             }
+    }
+
+    private fun writeUserToDatabase(view: View, userId: String, name: String?, email: String?) {
+        val user = User(name, email)
+        val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+        val myRef = database.child("users")
+
+        myRef.child(userId).setValue(user)
+
+        Log.w(TAG, "writeToDatabase:success")
+    }
+
+    private fun updateUI() {
+        val intent = Intent(this.requireContext(), TabsActivity::class.java)
+        startActivity(intent)
     }
 
 }
