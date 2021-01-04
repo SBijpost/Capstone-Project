@@ -2,6 +2,7 @@ package com.sem.capstoneproject.ui.camera
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -14,6 +15,7 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_camera.*
 import java.io.File
@@ -22,6 +24,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import com.sem.capstoneproject.R
+import com.sem.capstoneproject.ui.sendsnep.SendSnepActivity
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -123,8 +126,8 @@ class CameraFragment : Fragment() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
-                    Toast.makeText(safeContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, msg)
+                    createSnap(savedUri.toString())
                 }
             })
     }
@@ -157,7 +160,7 @@ class CameraFragment : Fragment() {
 
     private fun getOutputDirectory(): File {
         val mediaDir = activity?.externalMediaDirs?.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name)).apply { mkdirs() }
+            File(it, "kapsteen").apply { mkdirs() }
         }
         return if (mediaDir != null && mediaDir.exists()) mediaDir else activity?.filesDir!!
     }
@@ -165,9 +168,15 @@ class CameraFragment : Fragment() {
 
     companion object {
         const val TAG = "CameraFragment"
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm"
         internal const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE)
         var isOffline = false // prevent app crash when goes offline
+    }
+
+    private fun createSnap(uri: String) {
+        val intent = Intent(this.requireContext(), SendSnepActivity::class.java)
+        intent.putExtra("uri", uri)
+        startActivity(intent)
     }
 }

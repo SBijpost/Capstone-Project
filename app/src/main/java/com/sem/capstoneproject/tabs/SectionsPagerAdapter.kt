@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.sem.capstoneproject.ui.camera.CameraFragment
 import com.sem.capstoneproject.ui.friends.FriendsFragment
-import com.sem.capstoneproject.ui.sneps.SnepsFragment
+import com.sem.capstoneproject.ui.sneps.SnepsListFragment
 
 class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private var numberOfTabs: Int)
     : FragmentStateAdapter(fm, lifecycle) {
@@ -18,7 +18,7 @@ class SectionsPagerAdapter(fm: FragmentManager, lifecycle: Lifecycle, private va
                 // # Snaps Fragment
                 val bundle = Bundle()
                 bundle.putString("SnepsFragment", "Sneps Fragment")
-                val snapsFragment = SnepsFragment()
+                val snapsFragment = SnepsListFragment()
                 snapsFragment.arguments = bundle
                 return snapsFragment
             }

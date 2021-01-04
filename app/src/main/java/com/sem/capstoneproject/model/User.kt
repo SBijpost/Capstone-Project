@@ -1,4 +1,4 @@
-package com.sem.capstoneproject.ui.auth
+package com.sem.capstoneproject.model
 
 import com.google.firebase.database.IgnoreExtraProperties
 

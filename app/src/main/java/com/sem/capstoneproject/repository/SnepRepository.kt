@@ -36,7 +36,3 @@ class SnepRepository {
     }
 
 }
-
-interface ApiCallback {
-    fun onSuccess(result: List<SnepItem>)
-}

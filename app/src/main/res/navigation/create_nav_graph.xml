@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/create_nav_graph"
+    app:startDestination="@id/createSnepFragment">
+
+    <fragment
+        android:id="@+id/createSnepFragment"
+        android:name="com.sem.capstoneproject.ui.sendsnep.CreateSnepFragment"
+        android:label="fragment_create_snep"
+        tools:layout="@layout/fragment_create_snep" >
+        <action
+            android:id="@+id/action_createSnepFragment_to_selectReceiverFragment"
+            app:destination="@id/selectReceiverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectReceiverFragment"
+        android:name="com.sem.capstoneproject.ui.sendsnep.SelectReceiverFragment"
+        android:label="fragment_select_receiver"
+        tools:layout="@layout/fragment_select_receiver" >
+        <action
+            android:id="@+id/action_selectReceiverFragment_to_createSnepFragment"
+            app:destination="@id/createSnepFragment" />
+    </fragment>
+</navigation>

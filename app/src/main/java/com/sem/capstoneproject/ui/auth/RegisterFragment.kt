@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -19,6 +18,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
+import com.sem.capstoneproject.model.User
 import com.sem.capstoneproject.tabs.TabsActivity
 import kotlinx.android.synthetic.main.fragment_register.registerButton
 import kotlinx.android.synthetic.main.fragment_register.tietEmail

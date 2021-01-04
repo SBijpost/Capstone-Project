@@ -18,4 +18,5 @@
     <string name="message">Message</string>
     <string name="send">SEND</string>
     <string name="close_button">Close button</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

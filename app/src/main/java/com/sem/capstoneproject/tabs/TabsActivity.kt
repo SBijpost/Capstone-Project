@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sem.capstoneproject.R
+import com.sem.capstoneproject.ui.friends.AddFriendsFragment
+import com.sem.capstoneproject.ui.friends.FriendsFragment
 import kotlinx.android.synthetic.main.activity_tabs.*
 
 class TabsActivity : AppCompatActivity() {

@@ -18,10 +18,9 @@ import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
 import com.sem.capstoneproject.adapter.SnepAdapter
 import com.sem.capstoneproject.model.SnepItem
-import com.sem.capstoneproject.tabs.TabsActivity
-import kotlinx.android.synthetic.main.fragment_sneps.*
+import kotlinx.android.synthetic.main.fragment_sneps_list.*
 
-class SnepsFragment: Fragment() {
+class SnepsListFragment: Fragment() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var snepAdapter: SnepAdapter
@@ -35,7 +34,7 @@ class SnepsFragment: Fragment() {
     ): View? {
         auth = Firebase.auth
 
-        return inflater.inflate(R.layout.fragment_sneps, container, false)
+        return inflater.inflate(R.layout.fragment_sneps_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
