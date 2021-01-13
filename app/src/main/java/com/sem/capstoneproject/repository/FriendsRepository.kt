@@ -26,7 +26,6 @@ class FriendsRepository {
         val menuListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 //               val friend = dataSnapshot.value as Friend
-                Log.d("asgfasasgsgf", dataSnapshot.value.toString())
                 //collectNames(dataSnapshot.value as Map<String?, Any?>?)
                 for (dsp in dataSnapshot.children) {
                     Log.d("KAAS", dsp.child("username").value.toString())

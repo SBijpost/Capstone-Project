@@ -33,13 +33,11 @@ class FriendsFragment: Fragment() {
             val fragmentManager = parentFragmentManager
             val fragmentTransaction = fragmentManager?.beginTransaction()
             val fragment = AddFriendsFragment()
-            fragmentTransaction?.add(R.id.frame_layout, fragment)
-            fragmentTransaction?.addToBackStack(null)
-            fragmentTransaction?.hide(this)
-            fragmentTransaction?.commit()
+            fragmentTransaction.add(R.id.frame_layout, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.hide(this)
+            fragmentTransaction.commit()
         }
     }
-
-
 
 }

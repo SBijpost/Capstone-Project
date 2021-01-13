@@ -1,22 +1,20 @@
 package com.sem.capstoneproject.ui.sendsnep
 
+import android.R.attr.outAnimation
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -30,9 +28,9 @@ import kotlinx.android.synthetic.main.fragment_create_snep.sendButton
 import kotlinx.android.synthetic.main.fragment_friends.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_select_receiver.*
-import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.FileInputStream
+import java.util.*
+
 
 class SelectReceiverFragment : Fragment() {
 
@@ -47,8 +45,8 @@ class SelectReceiverFragment : Fragment() {
     private var snepImage: Uri = Uri.EMPTY
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         auth = Firebase.auth
@@ -99,9 +97,13 @@ class SelectReceiverFragment : Fragment() {
     private fun uploadSnapImage() {
         val storageRef = Firebase.storage.reference
 
-        val file = Uri.fromFile(File(snepImage.toString()))
+        val file = Uri.fromFile(File(snepImage.path.toString()))
 
-        val riversRef = storageRef.child("images/banaan.jpg")
+        Log.d("djdjs", file.path.toString())
+
+        val id = UUID.randomUUID().toString()
+
+        val riversRef = storageRef.child("snaps/$id")
 
         val uploadTask = riversRef.putFile(file)
 
@@ -109,6 +111,7 @@ class SelectReceiverFragment : Fragment() {
             // Handle unsuccessful uploads
         }.addOnSuccessListener { taskSnapshot ->
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+            Log.d("asfasf", taskSnapshot.storage.path)
             val intent = Intent(this.requireContext(), TabsActivity::class.java)
             startActivity(intent)
         }

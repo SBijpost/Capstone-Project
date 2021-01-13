@@ -58,14 +58,8 @@ class FriendsAdapter(private val friends: List<Friend>, var c: Context) :
             nameTxt = itemView.findViewById(R.id.nameTV)
             myCheckBox = itemView.findViewById(R.id.selectCB)
 
-//            itemView.setOnClickListener { onClick(friends[adapterPosition]) }
             myCheckBox.setOnClickListener(this)
         }
-
-//        fun bind(friend: Friend) {
-////            Glide.with(context).load(snepItem.getImageUrl()).into(itemView.movie_photo)
-////            itemView.movie_number.text = (adapterPosition + 1).toString()
-//        }
 
         fun setItemClickListener(ic: ItemClickListener) {
             this.myItemClickListener = ic
