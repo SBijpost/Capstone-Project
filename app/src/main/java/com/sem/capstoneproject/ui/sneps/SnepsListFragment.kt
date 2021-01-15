@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +20,8 @@ import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
 import com.sem.capstoneproject.adapter.SnepAdapter
 import com.sem.capstoneproject.model.SnepItem
+import com.sem.capstoneproject.ui.sendsnep.SendSnepActivity
+import kotlinx.android.synthetic.main.fragment_create_snep.*
 import kotlinx.android.synthetic.main.fragment_sneps_list.*
 
 class SnepsListFragment: Fragment() {
@@ -68,7 +72,11 @@ class SnepsListFragment: Fragment() {
 
     private fun onSnepClick(snepItem: SnepItem) {
         Snackbar.make(rvSneps, snepItem.image_path, Snackbar.LENGTH_LONG).show()
-
+//        val bundle = bundleOf("message" to snepItem.message, "duration" to snepItem.length, "image" to snepItem.image_path)
+//        findNavController().navigate(R.id.action_snepsListFragment_to_viewSnepFragment, bundle)
+        val intent = Intent(this.requireContext(), ViewSnepActivity::class.java)
+//        intent.putExtra("uri", uri)
+        startActivity(intent)
     }
 
     private fun signOutUser() {
