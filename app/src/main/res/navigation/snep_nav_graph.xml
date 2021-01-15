@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/snep_nav_graph"
+    app:startDestination="@id/snepsListFragment">
+    <fragment
+        android:id="@+id/snepsListFragment"
+        android:name="com.sem.capstoneproject.ui.sneps.SnepsListFragment"
+        android:label="fragment_sneps_list"
+        tools:layout="@layout/fragment_sneps_list" >
+        <action
+            android:id="@+id/action_snepsListFragment_to_viewSnepFragment"
+            app:destination="@id/viewSnepFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewSnepFragment"
+        android:name="com.sem.capstoneproject.ui.sneps.ViewSnepFragment"
+        android:label="view_snep"
+        tools:layout="@layout/view_snep" >
+        <action
+            android:id="@+id/action_viewSnepFragment_to_snepsListFragment"
+            app:destination="@id/snepsListFragment" />
+    </fragment>
+</navigation>

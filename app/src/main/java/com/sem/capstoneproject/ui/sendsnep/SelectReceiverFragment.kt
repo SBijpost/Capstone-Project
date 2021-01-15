@@ -47,8 +47,6 @@ class SelectReceiverFragment : Fragment() {
     private val friends = arrayListOf<Friend>()
     private lateinit var friendsAdapter: FriendsAdapter
 
-    private lateinit var message: String
-
     private var snepImage: Uri = Uri.EMPTY
 
     override fun onCreateView(
@@ -72,18 +70,16 @@ class SelectReceiverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        message = arguments?.getString("message").toString()
-
         friendsAdapter = FriendsAdapter(friends, this.requireContext())
-        rvSelect.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        rvSelect.adapter = friendsAdapter
+//        rvSelect.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+//        rvSelect.adapter = friendsAdapter
 
         sendButton.setOnClickListener {
             uploadSnapImage(friendsAdapter.checkedFriends)
         }
 
         initViews()
-        observeColors()
+        observeFriends()
     }
 
     private fun initViews() {
@@ -92,7 +88,7 @@ class SelectReceiverFragment : Fragment() {
         rvSelect.adapter = friendsAdapter
     }
 
-    private fun observeColors() {
+    private fun observeFriends() {
         viewModel.friends.observe(viewLifecycleOwner, Observer {
             friends.clear()
             friends.addAll(it)
@@ -116,8 +112,8 @@ class SelectReceiverFragment : Fragment() {
         }.addOnSuccessListener { taskSnapshot ->
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             selectedFriends.forEach {
-                myRef.child(it.uid.toString()).child("snaps").child(id).setValue(SnepItem(id, arguments?.getString("message").toString(),
-                taskSnapshot.storage.path, auth.currentUser?.uid.toString(), arguments?.getInt("duration"),false))
+                myRef.child(it.uid.toString()).child("sneps").child(id).setValue(SnepItem(id, arguments?.getString("message").toString(),
+                taskSnapshot.storage.path, auth.currentUser?.uid.toString(), auth.currentUser?.displayName.toString(), arguments?.getInt("duration"),false))
             }
             val intent = Intent(this.requireContext(), TabsActivity::class.java)
             startActivity(intent)

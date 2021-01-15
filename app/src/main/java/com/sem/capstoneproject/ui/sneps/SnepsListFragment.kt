@@ -45,8 +45,8 @@ class SnepsListFragment: Fragment() {
         }
 
         snepAdapter = SnepAdapter(sneps, ::onSnepClick)
-        rvSneps.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-        rvSneps.adapter = snepAdapter
+//        rvSneps.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+//        rvSneps.adapter = snepAdapter
 
         initViews()
         observeSneps()
@@ -67,7 +67,8 @@ class SnepsListFragment: Fragment() {
     }
 
     private fun onSnepClick(snepItem: SnepItem) {
-        Snackbar.make(rvSneps, "dit is een sneppie", Snackbar.LENGTH_LONG).show()
+        Snackbar.make(rvSneps, snepItem.image_path, Snackbar.LENGTH_LONG).show()
+
     }
 
     private fun signOutUser() {

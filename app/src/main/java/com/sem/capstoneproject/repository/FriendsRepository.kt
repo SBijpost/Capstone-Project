@@ -10,38 +10,28 @@ import com.sem.capstoneproject.model.Friend
 class FriendsRepository {
 
     private var friends = mutableListOf<Friend>()
-    private var auth = Firebase.auth
-
 
     fun getFriends(callback: ApiCallback) {
-
-        val userId = auth.currentUser!!.uid
-
-        val database: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val myRef = database.child("users")
 
         val ref = FirebaseDatabase.getInstance().getReference("users")
 
 
         val menuListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-//               val friend = dataSnapshot.value as Friend
-                //collectNames(dataSnapshot.value as Map<String?, Any?>?)
                 for (dsp in dataSnapshot.children) {
                     val friend = Friend(dsp.key, dsp.child("username").value.toString())
                     friends.add(friend) //add result into array list
-                    callback.onSuccess(friends)
                 }
-//                friends.add(friend)
+                callback.onSuccess(friends)
             }
             override fun onCancelled(databaseError: DatabaseError) {
                 // handle error
             }
         }
         ref.addListenerForSingleValueEvent(menuListener)
-
     }
 
+    // ?
     private fun collectNames(users: Map<String?, Any?>?) {
         val names: ArrayList<String?> = ArrayList()
 
