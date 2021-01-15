@@ -2,12 +2,11 @@ package com.sem.capstoneproject.model
 
 data class SnepItem(
 
-    val id: Int,
+    val id: String,
     val message: String,
-    val date: String,
     val image_path: String,
-    val receiver: String,
     val sender: String,
+    val length: Int?,
     val opened: Boolean
 
     ) {

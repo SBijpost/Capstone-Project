@@ -28,7 +28,6 @@ class FriendsRepository {
 //               val friend = dataSnapshot.value as Friend
                 //collectNames(dataSnapshot.value as Map<String?, Any?>?)
                 for (dsp in dataSnapshot.children) {
-                    Log.d("KAAS", dsp.child("username").value.toString())
                     val friend = Friend(dsp.key, dsp.child("username").value.toString())
                     friends.add(friend) //add result into array list
                     callback.onSuccess(friends)

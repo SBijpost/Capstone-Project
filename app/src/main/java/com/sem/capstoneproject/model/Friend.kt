@@ -8,11 +8,4 @@ data class Friend(
     var uid: String? = "",
     var name: String? = "",
     var selected: Boolean = false
-) {
-    @Exclude
-    fun toMap(): Map<String, Any?> {
-        return mapOf(
-            "uid" to uid,
-        )
-    }
-}
+) {}

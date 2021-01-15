@@ -1,6 +1,7 @@
 package com.sem.capstoneproject.ui.sendsnep
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +53,7 @@ class CreateSnepFragment : Fragment() {
                 Snackbar.make(view, "Message can't be empty", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show()
             } else {
-                val bundle = bundleOf("message" to tietMessage.text, "duration" to slider.value)
+                val bundle = bundleOf("message" to tietMessage.text.toString(), "duration" to slider.value.toInt())
                 findNavController().navigate(R.id.action_createSnepFragment_to_selectReceiverFragment, bundle)
             }
         }
