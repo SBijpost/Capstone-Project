@@ -31,6 +31,7 @@
         </activity>
         <activity android:name=".tabs.TabsActivity" />
         <activity android:name=".ui.sendsnep.SendSnepActivity" />
+        <activity android:name=".ui.sneps.ViewSnepActivity" />
     </application>
 
 </manifest>

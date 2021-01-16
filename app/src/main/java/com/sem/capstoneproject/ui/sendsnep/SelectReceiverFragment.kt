@@ -113,16 +113,13 @@ class SelectReceiverFragment : Fragment() {
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             selectedFriends.forEach {
                 myRef.child(it.uid.toString()).child("sneps").child(id).setValue(SnepItem(id, arguments?.getString("message").toString(),
-                taskSnapshot.storage.path, auth.currentUser?.uid.toString(), auth.currentUser?.displayName.toString(), arguments?.getInt("duration"),false))
+                taskSnapshot.storage.path, auth.currentUser?.uid.toString(), auth.currentUser?.displayName.toString(), arguments?.getInt("duration")!!.toInt(),false))
             }
             val intent = Intent(this.requireContext(), TabsActivity::class.java)
+            intent.putExtra("send", true)
             startActivity(intent)
         }
 
 
     }
-
-//    private fun onColorClick(friend: Friend) {
-//        Snackbar.make(rvColors, "This color is: ${colorItem.name}", Snackbar.LENGTH_LONG).show()
-//    }
 }

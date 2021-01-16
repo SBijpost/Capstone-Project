@@ -2,17 +2,15 @@ package com.sem.capstoneproject.tabs
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.sem.capstoneproject.R
-import com.sem.capstoneproject.ui.friends.AddFriendsFragment
-import com.sem.capstoneproject.ui.friends.FriendsFragment
 import kotlinx.android.synthetic.main.activity_tabs.*
 
 class TabsActivity : AppCompatActivity() {
@@ -26,7 +24,12 @@ class TabsActivity : AppCompatActivity() {
 
         // Tabs Customization
         tabs.setSelectedTabIndicatorColor(Color.WHITE)
-        tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.design_default_color_primary_variant))
+        tabs.setBackgroundColor(
+            ContextCompat.getColor(
+                this,
+                R.color.design_default_color_primary_variant
+            )
+        )
 
         // Number Of Tabs
         val numberOfTabs = 3
@@ -60,13 +63,18 @@ class TabsActivity : AppCompatActivity() {
             // Change color of the icons
             tab.icon?.colorFilter =
                     BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                            Color.WHITE,
-                            BlendModeCompat.SRC_ATOP
+                        Color.WHITE,
+                        BlendModeCompat.SRC_ATOP
                     )
         }.attach()
 
         val tab = tabs.getTabAt(1)
         tab?.select()
+
+        val parentLayout: View = findViewById(android.R.id.content)
+        if(intent.getBooleanExtra("send", false)) {
+            Snackbar.make(parentLayout, "Snep was sent!", Snackbar.LENGTH_LONG).show()
+        }
 
     }
 

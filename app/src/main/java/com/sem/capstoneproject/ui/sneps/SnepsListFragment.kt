@@ -23,6 +23,7 @@ import com.sem.capstoneproject.model.SnepItem
 import com.sem.capstoneproject.ui.sendsnep.SendSnepActivity
 import kotlinx.android.synthetic.main.fragment_create_snep.*
 import kotlinx.android.synthetic.main.fragment_sneps_list.*
+import java.io.Serializable
 
 class SnepsListFragment: Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -75,7 +76,7 @@ class SnepsListFragment: Fragment() {
 //        val bundle = bundleOf("message" to snepItem.message, "duration" to snepItem.length, "image" to snepItem.image_path)
 //        findNavController().navigate(R.id.action_snepsListFragment_to_viewSnepFragment, bundle)
         val intent = Intent(this.requireContext(), ViewSnepActivity::class.java)
-//        intent.putExtra("uri", uri)
+        intent.putExtra("snepItem", snepItem as Serializable)
         startActivity(intent)
     }
 
@@ -84,7 +85,5 @@ class SnepsListFragment: Fragment() {
         val intent = Intent(this.requireContext(), MainActivity::class.java)
         startActivity(intent)
     }
-
-
 
 }
