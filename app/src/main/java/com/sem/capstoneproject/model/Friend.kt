@@ -1,6 +1,5 @@
 package com.sem.capstoneproject.model
 
-import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties

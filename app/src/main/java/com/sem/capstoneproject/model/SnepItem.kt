@@ -13,6 +13,4 @@ data class SnepItem(
     val opened: Boolean
 
     ): Serializable {
-//    fun getImageUrl() = "https://image.tmdb.org/t/p/w500/$poster_path"
-//    fun getBackdropImage() = "https://image.tmdb.org/t/p/original/$backdrop_path"
 }

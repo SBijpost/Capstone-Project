@@ -9,24 +9,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
 import com.sem.capstoneproject.model.SnepItem
 import com.sem.capstoneproject.tabs.TabsActivity
-import com.sem.capstoneproject.ui.sendsnep.SendSnepActivity
-import kotlinx.android.synthetic.main.fragment_create_snep.*
 import kotlinx.android.synthetic.main.view_snep.*
 import kotlinx.android.synthetic.main.view_snep.snepIV
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ViewSnepFragment: Fragment() {
     private lateinit var auth: FirebaseAuth
@@ -102,21 +101,23 @@ class ViewSnepFragment: Fragment() {
     }
 
     // go back to list and delete snep from list, database and storage
-    private fun stopViewingSnep() {
-        val database: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val myRef = database.child("users").child(auth.currentUser!!.uid)
-        val storageRef = Firebase.storage.reference
-        val snepRef = storageRef.child(snep.image_path)
+    fun stopViewingSnep() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+            val myRef = database.child("users").child(auth.currentUser!!.uid)
+            val storageRef = Firebase.storage.reference
+            val snepRef = storageRef.child(snep.image_path)
 
-        myRef.child("sneps").child(snep.id).removeValue().addOnSuccessListener {
-            Log.d("ViewSnep", "Snep deleted from database")
-        }
-        snepRef.delete().addOnSuccessListener {
-            Log.d("ViewSnep", "Snep deleted from storage")
-        }
+            myRef.child("sneps").child(snep.id).removeValue().addOnSuccessListener {
+                Log.d("ViewSnep", "Snep deleted from database")
+            }
+            snepRef.delete().addOnSuccessListener {
+                Log.d("ViewSnep", "Snep deleted from storage")
+            }
 
-        val intent = Intent(this.requireContext(), TabsActivity::class.java)
-        startActivity(intent)
+            val intent = Intent(requireContext(), TabsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

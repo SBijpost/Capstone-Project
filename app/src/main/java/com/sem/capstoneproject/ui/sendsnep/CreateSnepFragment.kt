@@ -1,7 +1,6 @@
 package com.sem.capstoneproject.ui.sendsnep
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
 import kotlinx.android.synthetic.main.fragment_create_snep.*
-import kotlinx.android.synthetic.main.fragment_login.*
 
 class CreateSnepFragment : Fragment() {
 

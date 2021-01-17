@@ -1,7 +1,6 @@
 package com.sem.capstoneproject.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +32,6 @@ class SnepAdapter(private val sneps: List<SnepItem>, private val onClick: (SnepI
         }
 
         fun bind(snepItem: SnepItem) {
-//            Glide.with(context).load(snepItem.getImageUrl()).into(itemView.movie_photo)
-//            itemView.movie_number.text = (adapterPosition + 1).toString()
             itemView.nameTV.text = snepItem.senderName
         }
     }

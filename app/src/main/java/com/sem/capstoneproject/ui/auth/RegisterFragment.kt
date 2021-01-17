@@ -24,6 +24,9 @@ import kotlinx.android.synthetic.main.fragment_register.registerButton
 import kotlinx.android.synthetic.main.fragment_register.tietEmail
 import kotlinx.android.synthetic.main.fragment_register.tietPassword
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -68,42 +71,46 @@ class RegisterFragment : Fragment() {
     }
 
     private fun signUpUser(view: View, email: String, password: String, name: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "signUpWithEmail:success")
-                    val user = auth.currentUser
-                    val profileUpdate = userProfileChangeRequest {
-                        displayName = name
-                    }
-                    user!!.updateProfile(profileUpdate)
-                        .addOnCompleteListener { task2 ->
-                            if (task2.isSuccessful) {
-                                Log.d(TAG, "User profile updated.")
-                                writeUserToDatabase(view, user.uid, user.displayName, user.email)
-                                Snackbar.make(view, "Successfully registered!", Snackbar.LENGTH_SHORT)
-                                        .setAction("Action", null).show()
-                                updateUI()
-                            }
+        CoroutineScope(Dispatchers.Main).launch {
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "signUpWithEmail:success")
+                        val user = auth.currentUser
+                        val profileUpdate = userProfileChangeRequest {
+                            displayName = name
                         }
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signUpWithEmail:failure", task.exception)
-                    Snackbar.make(view, "Registration failed. Make sure the passwords are identical.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
-                    //updateUI(null)
+                        user!!.updateProfile(profileUpdate)
+                            .addOnCompleteListener { task2 ->
+                                if (task2.isSuccessful) {
+                                    Log.d(TAG, "User profile updated.")
+                                    writeUserToDatabase(user.uid, user.displayName, user.email)
+                                    Snackbar.make(view, "Successfully registered!", Snackbar.LENGTH_SHORT)
+                                        .setAction("Action", null).show()
+                                    updateUI()
+                                }
+                            }
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signUpWithEmail:failure", task.exception)
+                        Snackbar.make(view, "Registration failed. Make sure the passwords are identical.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show()
+                    }
                 }
-            }
+        }
+
     }
 
-    private fun writeUserToDatabase(view: View, userId: String, name: String?, email: String?) {
-        val user = User(name, email)
-        val database: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val myRef = database.child("users")
+    private fun writeUserToDatabase(userId: String, name: String?, email: String?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val user = User(name, email)
+            val database: DatabaseReference = FirebaseDatabase.getInstance().reference
+            val myRef = database.child("users")
 
-        myRef.child(userId).setValue(user)
+            myRef.child(userId).setValue(user)
 
-        Log.w(TAG, "writeToDatabase:success")
+            Log.w(TAG, "writeToDatabase:success")
+        }
     }
 
     private fun updateUI() {

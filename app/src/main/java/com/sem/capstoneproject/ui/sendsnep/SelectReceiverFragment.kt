@@ -1,14 +1,11 @@
 package com.sem.capstoneproject.ui.sendsnep
 
-import android.R.attr.outAnimation
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,14 +20,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.sem.capstoneproject.R
-import com.sem.capstoneproject.adapter.FriendsAdapter
+import com.sem.capstoneproject.adapter.SelectReceiverAdapter
 import com.sem.capstoneproject.model.Friend
 import com.sem.capstoneproject.model.SnepItem
 import com.sem.capstoneproject.tabs.TabsActivity
-import kotlinx.android.synthetic.main.fragment_create_snep.*
 import kotlinx.android.synthetic.main.fragment_create_snep.sendButton
-import kotlinx.android.synthetic.main.fragment_friends.*
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_select_receiver.*
 import java.io.File
 import java.util.*
@@ -45,7 +39,7 @@ class SelectReceiverFragment : Fragment() {
     private val imageViewModel: ImageViewModel by activityViewModels()
 
     private val friends = arrayListOf<Friend>()
-    private lateinit var friendsAdapter: FriendsAdapter
+    private lateinit var selectReceiverAdapter: SelectReceiverAdapter
 
     private var snepImage: Uri = Uri.EMPTY
 
@@ -70,12 +64,10 @@ class SelectReceiverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        friendsAdapter = FriendsAdapter(friends, this.requireContext())
-//        rvSelect.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-//        rvSelect.adapter = friendsAdapter
+        selectReceiverAdapter = SelectReceiverAdapter(friends, this.requireContext())
 
         sendButton.setOnClickListener {
-            uploadSnapImage(friendsAdapter.checkedFriends)
+            uploadSnapImage(selectReceiverAdapter.checkedFriends)
         }
 
         initViews()
@@ -85,14 +77,14 @@ class SelectReceiverFragment : Fragment() {
     private fun initViews() {
         rvSelect.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        rvSelect.adapter = friendsAdapter
+        rvSelect.adapter = selectReceiverAdapter
     }
 
     private fun observeFriends() {
         viewModel.friends.observe(viewLifecycleOwner, Observer {
             friends.clear()
             friends.addAll(it)
-            friendsAdapter.notifyDataSetChanged()
+            selectReceiverAdapter.notifyDataSetChanged()
         })
     }
 

@@ -17,6 +17,9 @@ import com.sem.capstoneproject.MainActivity
 import com.sem.capstoneproject.R
 import com.sem.capstoneproject.tabs.TabsActivity
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -57,22 +60,22 @@ class LoginFragment : Fragment() {
     }
 
     private fun signInUser(view: View, email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    Snackbar.make(view, "Successfully logged in!", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show()
-                    updateUI()
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Snackbar.make(view, "Authentication failed.", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show()
-                    //updateUI(null)
+        CoroutineScope(Dispatchers.Main).launch {
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "signInWithEmail:success")
+                        Snackbar.make(view, "Successfully logged in!", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show()
+                        updateUI()
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Snackbar.make(view, "Authentication failed.", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show()
+                    }
                 }
-            }
+        }
     }
 
     private fun updateUI() {

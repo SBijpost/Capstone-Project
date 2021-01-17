@@ -1,11 +1,11 @@
 package com.sem.capstoneproject.repository
 
-import android.util.Log
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import com.sem.capstoneproject.model.Friend
 import com.sem.capstoneproject.model.SnepItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SnepRepository {
 
@@ -13,7 +13,7 @@ class SnepRepository {
     private var auth = Firebase.auth
 
 
-    fun getSnepItems(callback: ApiCallbackSnep) {
+    suspend fun getSnepItems(callback: ApiCallbackSnep) {
 
         val userId = auth.currentUser!!.uid
 
@@ -33,7 +33,9 @@ class SnepRepository {
                 // handle error
             }
         }
-        ref.addListenerForSingleValueEvent(snepListener)
+        withContext(Dispatchers.IO){
+            ref.addListenerForSingleValueEvent(snepListener)
+        }
 
     }
 

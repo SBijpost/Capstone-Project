@@ -3,11 +3,11 @@ package com.sem.capstoneproject.ui.sendsnep
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.sem.capstoneproject.model.Friend
-import com.sem.capstoneproject.model.SnepItem
 import com.sem.capstoneproject.repository.ApiCallback
 import com.sem.capstoneproject.repository.FriendsRepository
-import com.sem.capstoneproject.repository.SnepRepository
+import kotlinx.coroutines.launch
 
 class ReceiversViewModel : ViewModel(){
     private val friendsRepository = FriendsRepository()
@@ -17,10 +17,12 @@ class ReceiversViewModel : ViewModel(){
         get() = _friends
 
     private val _friends = MutableLiveData<List<Friend>>().apply {
-        friendsRepository.getFriends(object : ApiCallback {
-            override fun onSuccess(result: List<Friend>) {
-                value = result
-            }
-        })
+        viewModelScope.launch {
+            friendsRepository.getFriends(object : ApiCallback {
+                override fun onSuccess(result: List<Friend>) {
+                    value = result
+                }
+            })
+        }
     }
 }

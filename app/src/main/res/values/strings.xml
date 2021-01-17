@@ -14,14 +14,20 @@
     <string name="snep_image">Snep Image</string>
     <string name="sign_out">Sign out</string>
     <string name="add_friends">add friends</string>
-    <string name="create_snep">Create Snep</string>
     <string name="message">Message</string>
     <string name="send">SEND</string>
     <string name="close_button">Close button</string>
     <string name="title_activity_test">TestActivity</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="register">Register</string>
-    <string name="password">Password</string>
     <string name="textview">TextView</string>
     <string name="_10">10</string>
+    <string name="create_snep">Create Snep</string>
+    <string name="view_length_seconds">View length (seconds):</string>
+    <string name="snepchat">Snepchat</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="registration">Registration</string>
+    <string name="full_name">Full name</string>
+    <string name="email">Email</string>
 </resources>
