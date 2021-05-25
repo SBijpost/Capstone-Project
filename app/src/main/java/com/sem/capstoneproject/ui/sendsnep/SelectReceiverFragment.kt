@@ -90,13 +90,16 @@ class SelectReceiverFragment : Fragment() {
 
     private fun uploadSnapImage(friends: ArrayList<Friend>) {
         val storageRef = Firebase.storage.reference
+        // The friends selected to send the snep to
         val selectedFriends = friends
+        // The captured image
         val file = Uri.fromFile(File(snepImage.path.toString()))
+        // A random generated id for the snep
         val id = UUID.randomUUID().toString()
-        val riversRef = storageRef.child("snaps/$id")
-        val uploadTask = riversRef.putFile(file)
+        val snepsRef = storageRef.child("snaps/$id")
+        val uploadTask = snepsRef.putFile(file)
         val database: DatabaseReference = FirebaseDatabase.getInstance().reference
-        val myRef = database.child("users")
+        val usersRef = database.child("users")
 
         uploadTask.addOnFailureListener {
             // Handle unsuccessful uploads
@@ -104,7 +107,7 @@ class SelectReceiverFragment : Fragment() {
         }.addOnSuccessListener { taskSnapshot ->
             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
             selectedFriends.forEach {
-                myRef.child(it.uid.toString()).child("sneps").child(id).setValue(SnepItem(id, arguments?.getString("message").toString(),
+                usersRef.child(it.uid.toString()).child("sneps").child(id).setValue(SnepItem(id, arguments?.getString("message").toString(),
                 taskSnapshot.storage.path, auth.currentUser?.uid.toString(), auth.currentUser?.displayName.toString(), arguments?.getInt("duration")!!.toInt(),false))
             }
             val intent = Intent(this.requireContext(), TabsActivity::class.java)

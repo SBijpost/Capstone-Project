@@ -12,7 +12,6 @@ class SnepRepository {
     private var sneps = mutableListOf<SnepItem>()
     private var auth = Firebase.auth
 
-
     suspend fun getSnepItems(callback: ApiCallbackSnep) {
 
         val userId = auth.currentUser!!.uid

@@ -59,7 +59,6 @@ class ViewSnepFragment: Fragment() {
         initViews()
 
         startTimer(displayTime)
-
     }
 
     private fun initViews() {
@@ -102,7 +101,6 @@ class ViewSnepFragment: Fragment() {
 
     // go back to list and delete snep from list, database and storage
     fun stopViewingSnep() {
-        CoroutineScope(Dispatchers.Main).launch {
             val database: DatabaseReference = FirebaseDatabase.getInstance().reference
             val myRef = database.child("users").child(auth.currentUser!!.uid)
             val storageRef = Firebase.storage.reference
@@ -117,7 +115,6 @@ class ViewSnepFragment: Fragment() {
 
             val intent = Intent(requireContext(), TabsActivity::class.java)
             startActivity(intent)
-        }
     }
 
 }

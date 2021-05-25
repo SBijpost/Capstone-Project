@@ -60,7 +60,7 @@ class CameraFragment : Fragment() {
             requestPermissions(requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
 
-        // Setup the listener for take photo button
+        // Setup the listener for take photo/create snap button
         camera_capture_button.setOnClickListener { takePhoto() }
 
         outputDirectory = getOutputDirectory()
